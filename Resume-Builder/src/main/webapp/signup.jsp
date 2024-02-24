@@ -98,29 +98,36 @@
     }
 </style>
 <script>
-    function addFieldset(fieldsetId) {
-        var fieldset = document.getElementById(fieldsetId);
-        var clone = fieldset.cloneNode(true);
-        var legend = clone.querySelector('legend');
-        var number = document.querySelectorAll('.' + fieldsetId).length + 1;
-        legend.textContent = legend.textContent.replace(/\d+/, number);
-        var inputs = clone.querySelectorAll('input, textarea, select');
+function addFieldset(fieldsetId) {
+    var fieldset = document.getElementById(fieldsetId);
+    var clone = fieldset.cloneNode(true);
+    var legend = clone.querySelector('legend');
+    var number = document.querySelectorAll('.' + fieldsetId).length + 1;
+    legend.textContent = legend.textContent.replace(/\d+/, number);
+    var inputs = clone.querySelectorAll('input, textarea, select');
+    var hasEmptyField = false;
+    for (var i = 0; i < inputs.length; i++) {
+        if (inputs[i].hasAttribute('required') && inputs[i].value.trim() === '') {
+            hasEmptyField = true;
+            break;
+        }
+    }
+    if (!hasEmptyField) {
         for (var i = 0; i < inputs.length; i++) {
             inputs[i].value = '';
         }
         fieldset.parentNode.insertBefore(clone, fieldset.nextSibling);
     }
+}
+
+
 </script>
 </head>
 <body>
 <div class="container">
     <h1>Resume Maker</h1>
-    <form id="resumeForm" action="generateResume.jsp" method="post" enctype="multipart/form-data">
-        <fieldset>
-            <legend>Profile Photo</legend>
-            <label for="photo">Upload Photo:</label>
-            <input type="file" id="photo" name="photo">
-        </fieldset>
+    <form id="resumeForm" action="generateResume.jsp" method="post">
+       
         <fieldset>
             <legend>Personal Information</legend>
             <label for="name">Name:<span class="required">*</span></label>
@@ -133,8 +140,8 @@
             <input type="text" id="address" name="address"><br><br>
             <fieldset id="socialLinks" class="socialLinks">
                 <legend>Social Links</legend>
-                <label for="socialLink1">Social Link:</label>
-                <input type="text" id="socialLink1" name="socialLink1"><br>
+                <label for="socialLink">Social Link:</label>
+                <input type="text" id="socialLink" name="socialLink"><br>
                
             </fieldset>
              <button type="button" onclick="addFieldset('socialLinks')">+More links</button>
@@ -155,7 +162,7 @@
             <legend>Experience</legend>
             <label for="jobTitle1">Job Title:</label>
             <input type="text" id="jobTitle" name="jobTitle"><br><br>
-            <label for="employer1">Employer:</label>
+            <label for="employer">Employer:</label>
             <input type="text" id="employer" name="employer"><br><br>
             <label for="expStartDate">Start Date:</label>
             <input type="date" id="expStartDate" name="expStartDate"><br><br>
