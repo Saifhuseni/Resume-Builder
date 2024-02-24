@@ -55,16 +55,38 @@
     }
 
     button {
+        padding: 5px 10px;
+        background-color: #dd99ff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
+    
+    #button1 {
         padding: 10px 20px;
         background-color: #007bff;
         color: #fff;
         border: none;
         border-radius: 3px;
         cursor: pointer;
+        margin-bottom: 10px;
+        margin-left: 40%
     }
 
-    button:hover {
+    #button1:hover {
         background-color: #0056b3;
+    }
+
+    .required {
+        color: red;
+        margin-left: 5px;
     }
 
     #resumeOutput {
@@ -75,38 +97,65 @@
         display: none;
     }
 </style>
+<script>
+    function addFieldset(fieldsetId) {
+        var fieldset = document.getElementById(fieldsetId);
+        var clone = fieldset.cloneNode(true);
+        var legend = clone.querySelector('legend');
+        var number = document.querySelectorAll('.' + fieldsetId).length + 1;
+        legend.textContent = legend.textContent.replace(/\d+/, number);
+        var inputs = clone.querySelectorAll('input, textarea, select');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].value = '';
+        }
+        fieldset.parentNode.insertBefore(clone, fieldset.nextSibling);
+    }
+</script>
 </head>
 <body>
 <div class="container">
     <h1>Resume Maker</h1>
-    <form id="resumeForm" action="generateResume.jsp" method="post">
-       <fieldset>
-            <legend>Personal Information</legend>
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required><br><br>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required><br><br>
-            <label for="phone">Phone:</label>
-            <input type="tel" id="phone" name="phone" required><br><br>
-            <label for="address">Address:</label>
-            <input type="text" id="address" name="address">
+    <form id="resumeForm" action="generateResume.jsp" method="post" enctype="multipart/form-data">
+        <fieldset>
+            <legend>Profile Photo</legend>
+            <label for="photo">Upload Photo:</label>
+            <input type="file" id="photo" name="photo">
         </fieldset>
         <fieldset>
+            <legend>Personal Information</legend>
+            <label for="name">Name:<span class="required">*</span></label>
+            <input type="text" id="name" name="name" required><br><br>
+            <label for="email">Email:<span class="required">*</span></label>
+            <input type="email" id="email" name="email" required><br><br>
+            <label for="phone">Phone:<span class="required">*</span></label>
+            <input type="tel" id="phone" name="phone" required><br><br>
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address"><br><br>
+            <fieldset id="socialLinks" class="socialLinks">
+                <legend>Social Links</legend>
+                <label for="socialLink1">Social Link:</label>
+                <input type="text" id="socialLink1" name="socialLink1"><br>
+               
+            </fieldset>
+             <button type="button" onclick="addFieldset('socialLinks')">+More links</button>
+        </fieldset>
+        <fieldset id="education" class="education">
             <legend>Education</legend>
-            <label for="degree">Degree:</label>
-            <input type="text" id="degree" name="degree"><br><br>
-            <label for="university">University:</label>
-            <input type="text" id="university" name="university"><br><br>
+            <label for="degree">Degree:<span class="required">*</span></label>
+            <input type="text" id="degree" name="degree" required><br><br>
+            <label for="university">University:<span class="required">*</span></label>
+            <input type="text" id="university" name="university" required><br><br>
             <label for="eduStartDate">Start Date:</label>
             <input type="date" id="eduStartDate" name="eduStartDate"><br><br>
             <label for="eduEndDate">End Date:</label>
             <input type="date" id="eduEndDate" name="eduEndDate">
         </fieldset>
-        <fieldset>
+        <button type="button" onclick="addFieldset('education')">+ Add More</button>
+        <fieldset id="experience" class="experience">
             <legend>Experience</legend>
-            <label for="jobTitle">Job Title:</label>
+            <label for="jobTitle1">Job Title:</label>
             <input type="text" id="jobTitle" name="jobTitle"><br><br>
-            <label for="employer">Employer:</label>
+            <label for="employer1">Employer:</label>
             <input type="text" id="employer" name="employer"><br><br>
             <label for="expStartDate">Start Date:</label>
             <input type="date" id="expStartDate" name="expStartDate"><br><br>
@@ -115,12 +164,13 @@
             <label for="responsibilities">Responsibilities:</label><br>
             <textarea id="responsibilities" name="responsibilities" rows="4"></textarea>
         </fieldset>
+        <button type="button" id="button" onclick="addFieldset('experience')">+ Add More</button>
         <fieldset>
             <legend>Skills</legend>
             <label for="skills">Skills:</label><br>
             <textarea id="skills" name="skills" rows="4"></textarea>
         </fieldset>
-        <button type="submit">Generate Resume</button>
+        <button type="submit" id="button1">Generate Resume</button>
     </form>
     <div id="resumeOutput"></div>
 </div>

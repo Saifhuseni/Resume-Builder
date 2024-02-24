@@ -12,7 +12,6 @@
             padding: 0;
             background-color: #f4f4f4;
         }
-
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -21,11 +20,9 @@
             border-radius: 5px;
             box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
         }
-
         h1 {
             text-align: center;
         }
-
         p {
             margin-bottom: 10px;
         }
