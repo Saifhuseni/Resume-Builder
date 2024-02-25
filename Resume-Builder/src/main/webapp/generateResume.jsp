@@ -54,9 +54,9 @@
     </style>
 </head>
 <body><h1>Resume Output</h1>
-
-<h2>________________________________________________________________________________________________________</h2>
 <div class="resumebody">
+<h2>________________________________________________________________________________________________________</h2>
+
 <br>
 
 <div class="container">
@@ -103,7 +103,7 @@
  <%
 if (degrees != null && degrees.length > 0 && degrees[0].trim().length() > 0) {
     out.println("<h2>_____________________________________________________________</h2>");
-    out.println("<h2>Education</h2>");
+    out.println("<h2 class='editable-heading education-heading'>Education</h2>");
     for (int i = 0; i < degrees.length; i++) {
         if (degrees[i].trim().length() > 0) {
             out.println("<div style='margin-bottom: 30px;'>");
@@ -137,7 +137,7 @@ if (degrees != null && degrees.length > 0 && degrees[0].trim().length() > 0) {
 <%
 if (jobTitles != null && jobTitles.length > 0 && jobTitles[0].trim().length() > 0) {
     out.println("<h2>_____________________________________________________________</h2>");
-    out.println("<h2>Experience</h2>");
+    out.println("<h2 class='editable-heading experience-heading'>Experience</h2>");
     for (int i = 0; i < jobTitles.length; i++) {
         if (jobTitles[i].trim().length() > 0) {
             out.println("<div style='margin-bottom: 30px;'>"); 
@@ -175,7 +175,7 @@ if (jobTitles != null && jobTitles.length > 0 && jobTitles[0].trim().length() > 
 <% 
 if (skills != null && !skills.isEmpty()) {
     out.println("<h2>_____________________________________________________________</h2>");
-    out.println("<h2>Skills</h2>");
+    out.println("<h2 class='editable-heading skills-heading'>Skills</h2>");
     out.println("<p>" + skills.replaceAll("\n", "<br>") + "</p>"); // Use replaceAll to replace newline characters with <br> tags
 }
 %>
@@ -185,7 +185,7 @@ if (skills != null && !skills.isEmpty()) {
                    <div class="pd">
             <% if (socialLinks != null && socialLinks.length > 0 && socialLinks[0].trim().length() > 0) { %>
              <h2>_____________________________________________________________</h2>
-                <h2>Social Links</h2>
+                <h2 class='editable-heading social-links-heading'>Social Links</h2>
                 <% for (String link : socialLinks) { %>
                     <% if (link.trim().length() > 0) { %>
                         <p><a href="<%= link %>"><%= link %></a></p>
@@ -219,6 +219,91 @@ if (skills != null && !skills.isEmpty()) {
         const containerColor = document.getElementById('containerColor').value;
         document.querySelector('.resumebody').style.backgroundColor = bodyColor;
         document.querySelector('.container').style.backgroundColor = containerColor;
+    });
+</script>
+
+
+<div class="customize-font">
+    <h2>Customize Font</h2>
+    <label for="headingFont">Heading Font:</label>
+    <select id="headingFont">
+        <option value="Arial, sans-serif">Arial</option>
+<option value="Verdana, sans-serif">Verdana</option>
+<option value="Helvetica, sans-serif">Helvetica</option>
+<option value="Times New Roman, serif">Times New Roman</option>
+<option value="Georgia, serif">Georgia</option>
+<option value="Palatino Linotype, serif">Palatino Linotype</option>
+<option value="Book Antiqua, serif">Book Antiqua</option>
+<option value="Lucida Sans Unicode, sans-serif">Lucida Sans Unicode</option>
+<option value="Tahoma, sans-serif">Tahoma</option>
+<option value="Trebuchet MS, sans-serif">Trebuchet MS</option>
+<option value="Arial Black, sans-serif">Arial Black</option>
+<option value="Impact, sans-serif">Impact</option>
+<option value="Comic Sans MS, cursive">Comic Sans MS</option>
+<option value="Courier New, monospace">Courier New</option>
+<option value="Lucida Console, monospace">Lucida Console</option>
+
+    </select>
+    <label for="headingFontSize">Heading Font Size:</label>
+    <input type="range" id="headingFontSize" min="10" max="50" step="1" value="16">
+
+    <label for="dataFont">Data Font:</label>
+    <select id="dataFont">
+       <option value="Arial, sans-serif">Arial</option>
+<option value="Verdana, sans-serif">Verdana</option>
+<option value="Helvetica, sans-serif">Helvetica</option>
+<option value="Times New Roman, serif">Times New Roman</option>
+<option value="Georgia, serif">Georgia</option>
+<option value="Palatino Linotype, serif">Palatino Linotype</option>
+<option value="Book Antiqua, serif">Book Antiqua</option>
+<option value="Lucida Sans Unicode, sans-serif">Lucida Sans Unicode</option>
+<option value="Tahoma, sans-serif">Tahoma</option>
+<option value="Trebuchet MS, sans-serif">Trebuchet MS</option>
+<option value="Arial Black, sans-serif">Arial Black</option>
+<option value="Impact, sans-serif">Impact</option>
+<option value="Comic Sans MS, cursive">Comic Sans MS</option>
+<option value="Courier New, monospace">Courier New</option>
+<option value="Lucida Console, monospace">Lucida Console</option>
+
+        
+        
+    </select>
+    <label for="dataFontSize">Data Font Size:</label>
+    <input type="range" id="dataFontSize" min="10" max="30" step="1" value="14">
+</div>
+
+<script>
+document.getElementById('headingFont').addEventListener('change', function() {
+    const selectedFont = this.value;
+    const headings = document.querySelectorAll('.education-heading, .skills-heading, .experience-heading, .social-links-heading');
+    headings.forEach(heading => {
+        heading.style.fontFamily = selectedFont;
+    });
+});
+
+
+document.getElementById('headingFontSize').addEventListener('input', function() {
+    const newSize = this.value + 'px';
+    const headings = document.querySelectorAll('.education-heading, .skills-heading, .experience-heading,');
+    headings.forEach(heading => {
+        heading.style.fontSize = newSize;
+    });
+});
+
+    document.getElementById('dataFont').addEventListener('change', function() {
+        const selectedFont = this.value;
+        const data = document.querySelectorAll('.resumebody p, .resumebody li, .resumebody span');
+        data.forEach(datum => {
+            datum.style.fontFamily = selectedFont;
+        });
+    });
+
+    document.getElementById('headingFontSize').addEventListener('input', function() {
+        const newSize = this.value + 'px';
+        const headings = document.querySelectorAll('.education-heading, .skills-heading, .experience-heading, .social-links-heading');
+        headings.forEach(heading => {
+            heading.style.fontSize = newSize;
+        });
     });
 </script>
 
