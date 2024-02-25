@@ -10,7 +10,7 @@
         font-family: Arial, sans-serif;
         margin: 0;
         padding: 0;
-        background-color: #f4f4f4;
+        background-color: #99ffcc;
     }
 
     .container {
@@ -52,6 +52,7 @@
         margin-bottom: 10px;
         border: 1px solid #ccc;
         border-radius: 3px;
+         background-color: #ffffcc;
     }
 
     button {
@@ -128,7 +129,7 @@ function addFieldset(fieldsetId) {
     <h1>Resume Maker</h1>
     <form id="resumeForm" action="generateResume.jsp" method="post">
        
-        <fieldset>
+        <fieldset style="background-color: #ffffcc;">
             <legend>Personal Information</legend>
             <label for="name">Name:<span class="required">*</span></label>
             <input type="text" id="name" name="name" required><br><br>
@@ -146,7 +147,7 @@ function addFieldset(fieldsetId) {
             </fieldset>
              <button type="button" onclick="addFieldset('socialLinks')">+More links</button>
         </fieldset>
-        <fieldset id="education" class="education">
+        <fieldset id="education" class="education" style="background-color: #ffffcc;">
             <legend>Education</legend>
             <label for="degree">Degree:<span class="required">*</span></label>
             <input type="text" id="degree" name="degree" required><br><br>
@@ -158,7 +159,7 @@ function addFieldset(fieldsetId) {
             <input type="date" id="eduEndDate" name="eduEndDate">
         </fieldset>
         <button type="button" onclick="addFieldset('education')">+ Add More</button>
-        <fieldset id="experience" class="experience">
+        <fieldset id="experience" class="experience" style="background-color: #ffffcc;">
             <legend>Experience</legend>
             <label for="jobTitle1">Job Title:</label>
             <input type="text" id="jobTitle" name="jobTitle"><br><br>
@@ -172,7 +173,7 @@ function addFieldset(fieldsetId) {
             <textarea id="responsibilities" name="responsibilities" rows="4"></textarea>
         </fieldset>
         <button type="button" id="button" onclick="addFieldset('experience')">+ Add More</button>
-        <fieldset>
+        <fieldset style="background-color: #ffffcc;">
             <legend>Skills</legend>
             <label for="skills">Skills:</label><br>
             <textarea id="skills" name="skills" rows="4"></textarea>

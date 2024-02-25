@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Resume Output</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.min.js"></script>
+    
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -50,13 +52,27 @@
   color: #33ccff;
   
 }
+  button {
+       padding: 10px 20px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        margin-left: 40%
+    }
+
+    button:hover {
+        background-color: #0056b3;
+    }
        
     </style>
 </head>
 <body><h1>Resume Output</h1>
-<div class="resumebody">
-<h2>________________________________________________________________________________________________________</h2>
 
+<h2>________________________________________________________________________________________________________</h2>
+<div class="resumebody">
 <br>
 
 <div class="container">
@@ -198,9 +214,9 @@ if (skills != null && !skills.isEmpty()) {
            
 </div>
 </div>
-
+<br></div>
 <h2>________________________________________________________________________________________________________</h2>
-</div>
+
 <div class="customize">
     <h2>Customize Background</h2>
     <form method="post" action="">
@@ -307,5 +323,28 @@ document.getElementById('headingFontSize').addEventListener('input', function() 
     });
 </script>
 
+
+<div class="customize">
+    <h2>Download Resume</h2>
+   <button id="Downloadpng">Download Resume</button>
+</div>
+
+<script type="text/javascript">
+document.getElementById('Downloadpng').addEventListener('click', function() {
+
+    var elements = document.querySelectorAll('.resumebody, .container');
+
+  
+    html2canvas(elements, {
+        onrendered: function(canvas) {
+    
+            var link = document.createElement('a');
+            link.download = 'resume.png';
+            link.href = canvas.toDataURL();
+            link.click();
+        }
+    });
+});
+</script>
 </body>
 </html>
