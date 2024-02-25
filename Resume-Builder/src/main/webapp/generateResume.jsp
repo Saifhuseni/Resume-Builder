@@ -17,31 +17,41 @@
             margin: 0 auto;
             background-color: #fff;
             border-radius: 5px;
-            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            box-shadow: 2px 4px 2px 4px  rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
 
         h1 {
             text-align: center;
         }
+        
+        h2 {
+            margin-bottom: -5px;
+        }
 
         p {
-            margin-bottom: 10px;
+        margin-top: -10px
+            margin-bottom: -15px;
         }
 
         strong {
             font-weight: bold;
         }
-     .centered-text {
-            text-align: center;
-           
+     .pd {
+           badding:0px;
+           margin-bottom: -30px;
         }
+        ::selection {
+  color: #33ccff;
+  
+}
        
     </style>
 </head>
-<body>
+<body><h1>Resume Output</h1>
+<br>
 <div class="container">
-    <h1>Resume Output</h1>
+    
     <%
         // Extract form data from request
         String name = request.getParameter("name");
@@ -62,32 +72,25 @@
 
         // Display the extracted data if not empty
     %>
-   <div class="centered-text">
+   <div class="pd">
         <% if (name != null && !name.isEmpty()) { %>
-            <p ><strong><%= name %></strong></p>
+            <p class="q1"><strong><%= name %></strong></p>
         <% } %>
         <% if (email != null && !email.isEmpty()) { %>
-            <p><%= email %></p>
+            <p class="q1"><%= email %></p>
         <% } %>
         <% if (phone != null && !phone.isEmpty()) { %>
-            <p><%= phone %></p>
+            <p class="q1"><%= phone %></p>
         <% } %>
         <% if (address != null && !address.isEmpty()) { %>
-            <p><%= address %></p>
+            <p class="q1"><%= address %></p>
         <% } %>
     </div>
 
-
-       <%  if (socialLinks != null && socialLinks.length > 0 && socialLinks[0].trim().length() > 0) {
-            out.println("<h2>Social Links</h2>");
-            for (String link : socialLinks) {
-                if (link.trim().length() > 0) {
-                    out.println("<p>" + link + "</p>");
-                }
-            }
-        }
-
+   <div class="pd">
+ <%  
         if (degrees != null && degrees.length > 0 && degrees[0].trim().length() > 0) {
+        	 out.println("<h2>_____________________________________________________________</h2>");
             out.println("<h2>Education</h2>");
             for (int i = 0; i < degrees.length; i++) {
                 if (degrees[i].trim().length() > 0) {
@@ -114,8 +117,12 @@
                 }
             }
         }
+%></div>
 
+   <div class="pd">
+<%
         if (jobTitles != null && jobTitles.length > 0 && jobTitles[0].trim().length() > 0) {
+        	 out.println("<h2>_____________________________________________________________</h2>");
             out.println("<h2>Experience</h2>");
             for (int i = 0; i < jobTitles.length; i++) {
                 if (jobTitles[i].trim().length() > 0) {
@@ -145,12 +152,29 @@
                 }
             }
         }
-
+%>
+</div>
+   <div class="pd">
+<% 
         if (skills != null && !skills.isEmpty()) {
+        	 out.println("<h2>_____________________________________________________________</h2>");
             out.println("<h2>Skills</h2>");
             out.println("<p>" + skills + "</p>");
+        }%>
+        </div>
+           <div class="pd">
+        <%
+        if (socialLinks != null && socialLinks.length > 0 && socialLinks[0].trim().length() > 0) {
+        	 out.println("<h2>_____________________________________________________________</h2>");
+            out.println("<h2>Social Links</h2>");
+            for (String link : socialLinks) {
+                if (link.trim().length() > 0) {
+                    out.println("<p>" + link + "</p>");
+                }
+            }
         }
     %>
+    </div>
 </div>
 </body>
 </html>
