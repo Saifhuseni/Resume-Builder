@@ -288,6 +288,7 @@ if (skills != null && !skills.isEmpty()) {
     <input type="range" id="dataFontSize" min="10" max="30" step="1" value="14">
 </div>
 
+
 <script>
 document.getElementById('headingFont').addEventListener('change', function() {
     const selectedFont = this.value;
@@ -306,13 +307,13 @@ document.getElementById('headingFontSize').addEventListener('input', function() 
     });
 });
 
-    document.getElementById('dataFont').addEventListener('change', function() {
-        const selectedFont = this.value;
-        const data = document.querySelectorAll('.resumebody p, .resumebody li, .resumebody span');
-        data.forEach(datum => {
-            datum.style.fontFamily = selectedFont;
-        });
+document.getElementById('dataFontSize').addEventListener('input', function() {
+    const newSize = this.value + 'px';
+    const data = document.querySelectorAll('.resumebody p, .resumebody li, .resumebody span');
+    data.forEach(datum => {
+        datum.style.fontSize = newSize;
     });
+});
 
     document.getElementById('headingFontSize').addEventListener('input', function() {
         const newSize = this.value + 'px';
