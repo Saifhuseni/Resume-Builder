@@ -32,6 +32,11 @@
         strong {
             font-weight: bold;
         }
+     .centered-text {
+            text-align: center;
+           
+        }
+       
     </style>
 </head>
 <body>
@@ -56,20 +61,24 @@
         String skills = request.getParameter("skills");
 
         // Display the extracted data if not empty
-        if (name != null && !name.isEmpty()) {
-            out.println("<p><strong>Name:</strong> " + name + "</p>");
-        }
-        if (email != null && !email.isEmpty()) {
-            out.println("<p><strong>Email:</strong> " + email + "</p>");
-        }
-        if (phone != null && !phone.isEmpty()) {
-            out.println("<p><strong>Phone:</strong> " + phone + "</p>");
-        }
-        if (address != null && !address.isEmpty()) {
-            out.println("<p><strong>Address:</strong> " + address + "</p>");
-        }
+    %>
+   <div class="centered-text">
+        <% if (name != null && !name.isEmpty()) { %>
+            <p ><strong><%= name %></strong></p>
+        <% } %>
+        <% if (email != null && !email.isEmpty()) { %>
+            <p><%= email %></p>
+        <% } %>
+        <% if (phone != null && !phone.isEmpty()) { %>
+            <p><%= phone %></p>
+        <% } %>
+        <% if (address != null && !address.isEmpty()) { %>
+            <p><%= address %></p>
+        <% } %>
+    </div>
 
-        if (socialLinks != null && socialLinks.length > 0 && socialLinks[0].trim().length() > 0) {
+
+       <%  if (socialLinks != null && socialLinks.length > 0 && socialLinks[0].trim().length() > 0) {
             out.println("<h2>Social Links</h2>");
             for (String link : socialLinks) {
                 if (link.trim().length() > 0) {
@@ -82,15 +91,25 @@
             out.println("<h2>Education</h2>");
             for (int i = 0; i < degrees.length; i++) {
                 if (degrees[i].trim().length() > 0) {
-                    out.println("<p><strong>Degree:</strong> " + degrees[i] + "</p>");
+                    out.println("<p><strong> " + degrees[i] + "</strong></p>");
                     if (universities != null && universities.length > i && universities[i].trim().length() > 0) {
-                        out.println("<p><strong>University:</strong> " + universities[i] + "</p>");
+                        out.println("<p> " + universities[i] + "</p>");
                     }
                     if (eduStartDates != null && eduStartDates.length > i && eduStartDates[i].trim().length() > 0) {
-                        out.println("<p><strong>Start Date:</strong> " + eduStartDates[i] + "</p>");
-                    }
-                    if (eduEndDates != null && eduEndDates.length > i && eduEndDates[i].trim().length() > 0) {
-                        out.println("<p><strong>End Date:</strong> " + eduEndDates[i] + "</p>");
+                        out.println("<p> " + eduStartDates[i]);
+                        if (eduEndDates != null && eduEndDates.length > i && eduEndDates[i].trim().length() > 0) {
+                            out.println(" - " + eduEndDates[i] + "</p>");
+                            // Calculate the difference between start and end dates
+                            java.time.LocalDate startDate = java.time.LocalDate.parse(eduStartDates[i]);
+                            java.time.LocalDate endDate = java.time.LocalDate.parse(eduEndDates[i]);
+                            java.time.Period period = java.time.Period.between(startDate, endDate);
+                            out.println("<p>Duration: " + period.getYears() + " years, " + period.getMonths() + " months, " + period.getDays() + " days</p>");
+                        } else {
+                            out.println(" - Till Date</p>");
+                            java.time.LocalDate startDate = java.time.LocalDate.parse(eduStartDates[i]);
+                            java.time.Period period = java.time.Period.between(startDate, java.time.LocalDate.now());
+                            out.println("<p>Duration: " + period.getYears() + " years, " + period.getMonths() + " months, " + period.getDays() + " days</p>");
+                        }
                     }
                 }
             }
@@ -100,18 +119,28 @@
             out.println("<h2>Experience</h2>");
             for (int i = 0; i < jobTitles.length; i++) {
                 if (jobTitles[i].trim().length() > 0) {
-                    out.println("<p><strong>Job Title:</strong> " + jobTitles[i] + "</p>");
+                    out.println("<p><strong> " + jobTitles[i] + "</strong></p>");
                     if (employers != null && employers.length > i && employers[i].trim().length() > 0) {
-                        out.println("<p><strong>Employer:</strong> " + employers[i] + "</p>");
+                        out.println("<p>Employer: " + employers[i] + "</p>");
                     }
                     if (expStartDates != null && expStartDates.length > i && expStartDates[i].trim().length() > 0) {
-                        out.println("<p><strong>Start Date:</strong> " + expStartDates[i] + "</p>");
-                    }
-                    if (expEndDates != null && expEndDates.length > i && expEndDates[i].trim().length() > 0) {
-                        out.println("<p><strong>End Date:</strong> " + expEndDates[i] + "</p>");
+                        out.println("<p> " + expStartDates[i]);
+                        if (expEndDates != null && expEndDates.length > i && expEndDates[i].trim().length() > 0) {
+                            out.println(" - " + expEndDates[i] + "</p>");
+                            // Calculate the difference between start and end dates
+                            java.time.LocalDate startDate = java.time.LocalDate.parse(expStartDates[i]);
+                            java.time.LocalDate endDate = java.time.LocalDate.parse(expEndDates[i]);
+                            java.time.Period period = java.time.Period.between(startDate, endDate);
+                            out.println("<p>Duration: " + period.getYears() + " years, " + period.getMonths() + " months, " + period.getDays() + " days</p>");
+                        } else {
+                            out.println(" - Till Date</p>");
+                            java.time.LocalDate startDate = java.time.LocalDate.parse(expStartDates[i]);
+                            java.time.Period period = java.time.Period.between(startDate, java.time.LocalDate.now());
+                            out.println("<p>Duration: " + period.getYears() + " years, " + period.getMonths() + " months, " + period.getDays() + " days</p>");
+                        }
                     }
                     if (responsibilities != null && responsibilities.length > i && responsibilities[i].trim().length() > 0) {
-                        out.println("<p><strong>Responsibilities:</strong> " + responsibilities[i] + "</p>");
+                        out.println("<p>" + responsibilities[i] + "</p>");
                     }
                 }
             }
