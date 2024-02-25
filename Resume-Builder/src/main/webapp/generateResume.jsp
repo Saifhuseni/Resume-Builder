@@ -11,12 +11,15 @@
             margin: 0;
             padding: 20px;
         }
+        .resumebody{
+        background-color: #ffff99;
+        }
 
         .container {
             max-width: 800px;
             margin: 0 auto;
             background-color: #fff;
-            border-radius: 5px;
+            border-radius: 8px;
             box-shadow: 2px 4px 2px 4px  rgba(0, 0, 0, 0.1);
             padding: 20px;
         }
@@ -51,7 +54,11 @@
     </style>
 </head>
 <body><h1>Resume Output</h1>
+
+<h2>________________________________________________________________________________________________________</h2>
+<div class="resumebody">
 <br>
+
 <div class="container">
     
     <%
@@ -71,6 +78,9 @@
         String[] expEndDates = request.getParameterValues("expEndDate");
         String[] responsibilities = request.getParameterValues("responsibilities");
         String skills = request.getParameter("skills");
+        String resumeBodyColor = request.getParameter("resumebody-color");
+        String containerColor = request.getParameter("container-color");
+        
 
         // Display the extracted data if not empty
     %>
@@ -183,8 +193,34 @@ if (skills != null && !skills.isEmpty()) {
                 <% } %>
             <% } %>
         </div>
+        
+        
            
 </div>
 </div>
+
+<h2>________________________________________________________________________________________________________</h2>
+</div>
+<div class="customize">
+    <h2>Customize Background</h2>
+    <form method="post" action="">
+        <label for="bodyColor">Body Background Color:</label>
+        <input type="color" id="bodyColor" name="bodyColor">
+        <label for="containerColor">Container Background Color:</label>
+        <input type="color" id="containerColor" name="containerColor">
+        <input type="submit" value="Apply">
+    </form>
+</div>
+
+<script>
+    document.querySelector('.customize form').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const bodyColor = document.getElementById('bodyColor').value;
+        const containerColor = document.getElementById('containerColor').value;
+        document.querySelector('.resumebody').style.backgroundColor = bodyColor;
+        document.querySelector('.container').style.backgroundColor = containerColor;
+    });
+</script>
+
 </body>
 </html>
